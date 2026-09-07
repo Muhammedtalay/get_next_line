@@ -6,37 +6,40 @@
 /*   By: mutalay <mutalay@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 16:46:18 by mutalay           #+#    #+#             */
-/*   Updated: 2026/09/03 18:00:48 by mutalay          ###   ########.fr       */
+/*   Updated: 2026/09/06 18:45:51 by mutalay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*storage;
-
-	if (nmemb == 0 || size == 0)
-		return (malloc(0));
-	if (nmemb > (__SIZE_MAX__ / size))
-		return (NULL);
-	storage = malloc(nmemb * size);
-	if (storage == NULL)
-		return (NULL);
-	ft_bzero(storage, nmemb * size);
-	return (storage);
-}
-
-void	ft_bzero(void *s, size_t n)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < n)
+	while (s[i])
 	{
-		((char *)s)[i] = 0;
 		i++;
 	}
+	return (i);
+}
+
+char	*ft_strdup(const char *s)
+{
+	size_t	i;
+	char	*news;
+
+	i = 0;
+	news = (char *)malloc(ft_strlen(s) + 1);
+	if (!news)
+		return (NULL);
+	while (s[i])
+	{
+		news[i] = s[i];
+		i++;
+	}
+	news[i] = 0;
+	return (news);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -66,21 +69,53 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*news;
 	size_t	size;
+	size_t	i;
 
 	if (!s)
 		return (NULL);
 	if (start > ft_strlen(s))
 	{
-		return (ft_calloc(1, 1));
+		return (malloc(1));
 	}
 	size = ft_strlen(s) - start;
 	if (len < size)
-	{
 		size = len;
-	}
 	news = (char *)malloc(size + 1);
 	if (!news)
 		return (NULL);
-	ft_strlcpy(news, &s[start], size + 1);
+	i = 0;
+	while (i < size && s[start + i] != '\0')
+	{
+		news[i] = s[start + i];
+		i++;
+	}
+	news[i] = '\0';
+	return (news);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*news;
+	size_t	i;
+	size_t	j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	news = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!news)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		news[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j] != '\0')
+	{
+		news[i + j] = s2[j];
+		j++;
+	}
+	news[i + j] = '\0';
 	return (news);
 }
