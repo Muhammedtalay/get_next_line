@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mutalay <mutalay@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 14:43:48 by mutalay           #+#    #+#             */
-/*   Updated: 2026/09/07 20:29:55 by mutalay          ###   ########.fr       */
+/*   Updated: 2026/11/09 19:26:49 by mutalay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static void	read_until_newline(char **stored, int fd, char *buf)
 {
@@ -83,7 +83,7 @@ static char	*split_stored(char **stored)
 
 char	*get_next_line(int fd)
 {
-	static char	*stored;
+	static char	*stored[FD_SIZE];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
